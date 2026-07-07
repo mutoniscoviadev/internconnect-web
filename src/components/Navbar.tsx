@@ -151,7 +151,7 @@ export default function Navbar() {
                 className="flex items-center justify-between rounded-xl px-4 py-4 text-base font-medium text-gray-700 transition hover:bg-blue-50 hover:text-[#1B4FD8]"
               >
                 <span>{item.label}</span>
-                {"badge" in item && item.badge > 0 && (
+                {item.badge !== undefined && item.badge > 0 && (
                   <span className="flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[11px] font-bold text-white">
                     {item.badge > 9 ? "9+" : item.badge}
                   </span>

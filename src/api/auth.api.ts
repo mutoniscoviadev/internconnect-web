@@ -3,6 +3,7 @@ import type {
   LoginPayload,
   RegisterPayload,
   User,
+  Role,
 } from "../types/auth.types";
 import { BASE_URL } from "./config";
 
@@ -11,13 +12,13 @@ function getToken(): string | null {
 }
 
 // Backend uses lowercase roles, frontend uses uppercase — map them here
-function toFrontendRole(role: string): string {
-  const map: Record<string, string> = {
+function toFrontendRole(role: string): Role {
+  const map: Record<string, Role> = {
     student: "STUDENT",
     employer: "COMPANY",
     admin: "ADMIN",
   };
-  return map[role] ?? role.toUpperCase();
+  return map[role] ?? "STUDENT"; // safe fallback if backend ever sends an unexpected role
 }
 
 function toBackendRole(role: string): string {
