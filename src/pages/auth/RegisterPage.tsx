@@ -41,7 +41,7 @@ export default function RegisterPage() {
           className="hidden lg:flex lg:w-1/2 flex-col justify-between p-12"
           style={{ background: "linear-gradient(160deg, #0f2a5e 0%, #1a4a8a 50%, #0d3b7a 100%)" }}
         >
-          <img src={logoFull} alt="InternConnect" className="h-14 w-auto" />
+          <img src={logoFull} alt="InternConnect" className="h-14 w-auto rounded-xl" />
           <div>
             <h1 className="text-4xl font-bold leading-tight text-white">Almost there!<br />Check your inbox.</h1>
             <p className="mt-4 text-white/50 text-sm leading-relaxed">
@@ -105,7 +105,7 @@ export default function RegisterPage() {
         style={{ background: "linear-gradient(160deg, #2c6fec 0%, #1a4a8a 50%, #0d3b7a 100%)" }}
       >
         <div>
-          <img src={logoFull} alt="InternConnect" className="h-14 w-auto" />
+          <img src={logoFull} alt="InternConnect" className="h-14 w-auto rounded-xl" />
           <p className="mt-2 text-xs font-semibold uppercase tracking-widest text-white/40">
             Connect. Learn. Launch.
           </p>
@@ -144,7 +144,7 @@ export default function RegisterPage() {
 
           {/* Mobile logo */}
           <div className="mb-8 lg:hidden text-center">
-            <img src={logoFull} alt="InternConnect" className="mx-auto h-12 w-auto" />
+            <img src={logoFull} alt="InternConnect" className="mx-auto h-12 w-auto rounded-xl" />
           </div>
 
           <h2 className="text-3xl font-bold text-gray-900">Create account</h2>
