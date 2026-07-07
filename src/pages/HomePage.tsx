@@ -303,7 +303,7 @@ export default function HomePage() {
   const { user } = useAuth();
   if (user?.role === "COMPANY") return <Navigate to="/company/dashboard" replace />;
   if (user?.role === "ADMIN")   return <Navigate to="/admin/dashboard" replace />;
-  if (user?.role === "STUDENT") return <LoggedInHome userId={user.id} name={user.name} />;
+  if (user?.role === "STUDENT") return <LoggedInHome userId={String(user.id)} name={user.name} />;
   // Logged out → redirect to the standalone landing page (it has its own navbar/footer)
   return <Navigate to="/landing" replace />;
 }
