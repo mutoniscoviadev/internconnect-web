@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
+import { User, Search, Rocket, Building2 } from "lucide-react";
 import { getListings } from "../api/listings.api";
 import logoFull from "../assets/logo-full.png";
 
@@ -68,6 +69,13 @@ function extractListings(raw: unknown): any[] {
   }
   return [];
 }
+
+// "How it works" step data — icons are lucide-react components, not emoji.
+const HOW_IT_WORKS = [
+  { Icon: User, step: "01", title: "Build your profile", body: "Tell us your skills, university, and goals. Our AI uses this to surface the best matches for you." },
+  { Icon: Search, step: "02", title: "Discover & apply", body: "Browse verified opportunities from Rwanda's leading companies and apply in minutes." },
+  { Icon: Rocket, step: "03", title: "Launch your career", body: "Get hired, gain real experience, and unlock your professional future." },
+];
 
 export default function LandingPage() {
   const [featured, setFeatured] = useState<FeaturedListing[]>([]);
@@ -196,16 +204,15 @@ export default function LandingPage() {
             </h2>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
-            {[
-              { icon: "👤", step: "01", title: "Build your profile", body: "Tell us your skills, university, and goals. Our AI uses this to surface the best matches for you." },
-              { icon: "🔍", step: "02", title: "Discover & apply", body: "Browse verified opportunities from Rwanda's leading companies and apply in minutes." },
-              { icon: "🚀", step: "03", title: "Launch your career", body: "Get hired, gain real experience, and unlock your professional future." },
-            ].map((item) => (
+            {HOW_IT_WORKS.map((item) => (
               <div key={item.step}
                 style={{ background: "white", border: "1px solid #E8ECF2" }}
                 className="rounded-2xl p-7 shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-center justify-between mb-5">
-                  <span className="text-3xl">{item.icon}</span>
+                  <div style={{ background: "#EEF2FF", color: "#1B4FD8" }}
+                    className="w-11 h-11 rounded-xl flex items-center justify-center">
+                    <item.Icon size={22} strokeWidth={2} />
+                  </div>
                   <span className="text-xs font-black text-blue-200 tracking-widest">{item.step}</span>
                 </div>
                 <h3 className="text-base font-bold text-[#0F1729] mb-2">{item.title}</h3>
@@ -258,8 +265,8 @@ export default function LandingPage() {
                       className="rounded-2xl p-6 h-full shadow-sm hover:shadow-lg transition-all hover:-translate-y-0.5">
                       <div className="flex items-center justify-between mb-4">
                         <div style={{ background: "#EEF2FF", color: "#1B4FD8" }}
-                          className="w-11 h-11 rounded-xl flex items-center justify-center text-xl">
-                          🏢
+                          className="w-11 h-11 rounded-xl flex items-center justify-center">
+                          <Building2 size={20} strokeWidth={2} />
                         </div>
                         {internship.stipend && (
                           <span style={{ background: "#ECFDF5", color: "#059669" }}
