@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/auth.context";
 import { useNavigate } from "react-router-dom";
+import { Building2, Settings, Globe, User, Mail } from "lucide-react";
 import { getProfile } from "../../api/employer.api";
 import { getMyListings } from "../../api/listings.api";
 import { getListingApplications } from "../../api/applications.api";
@@ -84,14 +85,14 @@ export default function CompanyProfilePage() {
   const memberSince = formatMemberSince(profile?.createdAt);
 
   const infoRows = [
-    { icon: "🏢", label: "Company", value: profile?.companyName || "Not set" },
-    { icon: "⚙️", label: "Industry", value: profile?.industry || "Not set" },
-    { icon: "🌐", label: "Website", value: profile?.website || "Not set" },
+    { Icon: Building2, label: "Company", value: profile?.companyName || "Not set" },
+    { Icon: Settings, label: "Industry", value: profile?.industry || "Not set" },
+    { Icon: Globe, label: "Website", value: profile?.website || "Not set" },
   ];
 
   const accountRows = [
-    { icon: "👤", label: "Name", value: user?.name ?? "—" },
-    { icon: "✉️", label: "Email", value: user?.email ?? "—" },
+    { Icon: User, label: "Name", value: user?.name ?? "—" },
+    { Icon: Mail, label: "Email", value: user?.email ?? "—" },
   ];
 
   return (
@@ -159,8 +160,8 @@ export default function CompanyProfilePage() {
             <div className="flex flex-col gap-1">
               {infoRows.map((item) => (
                 <div key={item.label} className="flex items-center gap-3 rounded-xl px-2 py-2.5 hover:bg-[#F8FAFC] transition">
-                  <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-[#EEF2FF] text-base">
-                    {item.icon}
+                  <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-[#EEF2FF] text-[#1B4FD8]">
+                    <item.Icon size={18} strokeWidth={2} />
                   </span>
                   <div className="min-w-0">
                     <p className="text-xs text-slate-400">{item.label}</p>
@@ -179,8 +180,8 @@ export default function CompanyProfilePage() {
             <div className="flex flex-col gap-1">
               {accountRows.map((item) => (
                 <div key={item.label} className="flex items-center gap-3 rounded-xl px-2 py-2.5 hover:bg-[#F8FAFC] transition">
-                  <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-[#EEF2FF] text-base">
-                    {item.icon}
+                  <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-[#EEF2FF] text-[#1B4FD8]">
+                    <item.Icon size={18} strokeWidth={2} />
                   </span>
                   <div className="min-w-0">
                     <p className="text-xs text-slate-400">{item.label}</p>
