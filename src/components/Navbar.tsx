@@ -1,17 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth.context";
 import logoFull from "../assets/logo-full.png";
-import { mockNotifications } from "../data/mockNotifications";
+import { getNotifications } from "../api/notifications.api";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
 
-  const unreadCount = user?.role === "STUDENT"
-    ? mockNotifications.filter((n) => !n.read).length
-    : 0;
+  useEffect(() => {
+    if (user?.role !== "STUDENT") {
+      setUnreadCount(0);
+      return;
+    }
+    let cancelled = false;
+
+    async function loadUnreadCount() {
+      try {
+        const data: any = await getNotifications();
+        if (!cancelled) setUnreadCount(data?.unreadCount ?? 0);
+      } catch {
+        // silently ignore — badge just won't show a count if this fails
+      }
+    }
+
+    loadUnreadCount();
+    return () => { cancelled = true; };
+  }, [user?.role]);
 
   const handleLogout = () => {
     logout();
