@@ -1,8 +1,24 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Target, BarChart3, Bot, Building2, GraduationCap, Mail, Inbox, Clock, Lock } from "lucide-react";
 import { useAuth } from "../../context/auth.context";
 import logoFull from "../../assets/logo-full.png";
 import type { Role } from "../../types/auth.types";
+
+// Left-panel feature list — icons are lucide-react components, not emoji.
+const FEATURES = [
+  { Icon: Target, title: "Smart Matching", desc: "AI-powered internship recommendations" },
+  { Icon: BarChart3, title: "Track Progress", desc: "Real-time application status updates" },
+  { Icon: Bot, title: "AI Career Tools", desc: "CV analysis, cover letters, guidance" },
+  { Icon: Building2, title: "Top Companies", desc: "Connect with Rwanda's leading employers" },
+];
+
+// "Check your email" tips list.
+const EMAIL_TIPS = [
+  { Icon: Inbox, text: "Can't find it? Check your spam or junk folder." },
+  { Icon: Clock, text: "The link expires in 24 hours." },
+  { Icon: Lock, text: "You won't be able to log in until verified." },
+];
 
 export default function RegisterPage() {
   const { register } = useAuth();
@@ -53,8 +69,8 @@ export default function RegisterPage() {
 
         <div className="flex w-full items-center justify-center bg-white px-6 py-12 lg:w-1/2">
           <div className="w-full max-w-md text-center">
-            <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-blue-50 text-4xl">
-              ✉️
+            <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-blue-50 text-blue-600">
+              <Mail size={36} strokeWidth={1.75} />
             </div>
             <h2 className="text-2xl font-bold text-gray-900">Check your email</h2>
             <p className="mt-2 text-sm text-gray-500 leading-relaxed">
@@ -64,13 +80,9 @@ export default function RegisterPage() {
             </p>
 
             <div className="mt-6 space-y-3 rounded-2xl border border-gray-100 bg-[#F8F9FF] p-5 text-left">
-              {[
-                { icon: "📬", text: "Can't find it? Check your spam or junk folder." },
-                { icon: "⏱️", text: "The link expires in 24 hours." },
-                { icon: "🔒", text: "You won't be able to log in until verified." },
-              ].map((tip) => (
-                <div key={tip.icon} className="flex items-start gap-3">
-                  <span className="text-base">{tip.icon}</span>
+              {EMAIL_TIPS.map((tip) => (
+                <div key={tip.text} className="flex items-start gap-3">
+                  <tip.Icon size={18} strokeWidth={2} className="mt-0.5 shrink-0 text-blue-600" />
                   <p className="text-sm text-gray-600">{tip.text}</p>
                 </div>
               ))}
@@ -116,15 +128,10 @@ export default function RegisterPage() {
             Start your<br />career journey<br />today
           </h1>
           <div className="mt-10 space-y-5">
-            {[
-              { icon: "🎯", title: "Smart Matching",    desc: "AI-powered internship recommendations" },
-              { icon: "📊", title: "Track Progress",    desc: "Real-time application status updates" },
-              { icon: "🤖", title: "AI Career Tools",   desc: "CV analysis, cover letters, guidance" },
-              { icon: "🏢", title: "Top Companies",     desc: "Connect with Rwanda's leading employers" },
-            ].map((f) => (
+            {FEATURES.map((f) => (
               <div key={f.title} className="flex items-start gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/10 text-xl">
-                  {f.icon}
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/10 text-white">
+                  <f.Icon size={20} strokeWidth={2} />
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-white">{f.title}</p>
@@ -166,8 +173,8 @@ export default function RegisterPage() {
           {/* Role selector */}
           <div className="mt-5 grid grid-cols-2 gap-3">
             {[
-              { value: "STUDENT" as Role, label: "Student", icon: "🎓", desc: "Looking for internships" },
-              { value: "COMPANY" as Role, label: "Company", icon: "🏢", desc: "Hiring interns" },
+              { value: "STUDENT" as Role, label: "Student", Icon: GraduationCap, desc: "Looking for internships" },
+              { value: "COMPANY" as Role, label: "Company", Icon: Building2, desc: "Hiring interns" },
             ].map((r) => (
               <button
                 key={r.value}
@@ -180,7 +187,7 @@ export default function RegisterPage() {
                 }`}
               >
                 <div className="flex items-center gap-2">
-                  <span className="text-lg">{r.icon}</span>
+                  <r.Icon size={18} strokeWidth={2} className={role === r.value ? "text-blue-700" : "text-gray-400"} />
                   <span className={`text-sm font-semibold ${role === r.value ? "text-blue-700" : "text-gray-700"}`}>
                     {r.label}
                   </span>

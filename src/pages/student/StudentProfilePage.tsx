@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import {
+  User, FileText, GraduationCap, Code2, Bell, Lock,
+  School, MessageCircle, Zap, Check, Circle,
+} from "lucide-react";
 import { useAuth } from "../../context/auth.context";
 import { getProfile, type StudentProfileDto } from "../../api/student.api";
 import { getMyApplications } from "../../api/applications.api";
@@ -29,18 +33,18 @@ function getMenuItems(profile: StudentProfileDto | null) {
 
   return [
     {
-      icon: "👤", iconBg: "bg-blue-100", iconColor: "text-blue-600",
+      Icon: User, iconBg: "bg-blue-100", iconColor: "text-blue-600",
       title: "Edit Profile", desc: "Update your personal info",
       to: "/student/profile/edit",
     },
     {
-      icon: "📄", iconBg: "bg-teal-100", iconColor: "text-teal-600",
+      Icon: FileText, iconBg: "bg-teal-100", iconColor: "text-teal-600",
       title: "My CV",
-      desc: profile?.cvUrl ? "CV uploaded ✅" : "No CV uploaded yet",
+      desc: profile?.cvUrl ? "CV uploaded" : "No CV uploaded yet",
       to: "/student/profile/edit",
     },
     {
-      icon: "🎓", iconBg: "bg-orange-100", iconColor: "text-orange-600",
+      Icon: GraduationCap, iconBg: "bg-orange-100", iconColor: "text-orange-600",
       title: "Education",
       desc: profile?.university
         ? `${profile.university}${profile.faculty ? ` · ${profile.faculty}` : ""}`
@@ -48,19 +52,19 @@ function getMenuItems(profile: StudentProfileDto | null) {
       to: "/student/profile/edit",
     },
     {
-      icon: "💻", iconBg: "bg-purple-100", iconColor: "text-purple-600",
+      Icon: Code2, iconBg: "bg-purple-100", iconColor: "text-purple-600",
       title: "Skills",
       desc: skillsCount > 0 ? `${skillsCount} skills added` : "Add your skills",
       to: "/student/profile/edit",
     },
     {
-      icon: "🔔", iconBg: "bg-green-100", iconColor: "text-green-600",
+      Icon: Bell, iconBg: "bg-green-100", iconColor: "text-green-600",
       title: "Job Alerts",
-      desc: profile?.jobAlertsEnabled ? "Enabled ✅" : "Disabled",
+      desc: profile?.jobAlertsEnabled ? "Enabled" : "Disabled",
       to: "/student/dashboard",
     },
     {
-      icon: "🔒", iconBg: "bg-red-100", iconColor: "text-red-600",
+      Icon: Lock, iconBg: "bg-red-100", iconColor: "text-red-600",
       title: "Privacy & Security", desc: "Manage your account security",
       to: "/",
     },
@@ -133,7 +137,8 @@ export default function StudentProfilePage() {
             <h1 className="text-2xl font-bold text-white">{user?.name}</h1>
             <p className="mt-0.5 text-sm text-white/65">{user?.email}</p>
             <span className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold text-white">
-              🎓 Student
+              <GraduationCap size={14} strokeWidth={2} />
+              Student
             </span>
           </div>
         </div>
@@ -170,19 +175,25 @@ export default function StudentProfilePage() {
                 <div className="flex flex-col gap-3">
                   {profile.university && (
                     <div className="flex items-center gap-3 text-sm">
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-orange-100 text-base">🏫</span>
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-orange-100 text-orange-600">
+                        <School size={16} strokeWidth={2} />
+                      </span>
                       <span className="text-[#0F1729]">{profile.university}{profile.department && ` · ${profile.department}`}</span>
                     </div>
                   )}
                   {profile.bio && (
                     <div className="flex items-start gap-3 text-sm">
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-base">💬</span>
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-600">
+                        <MessageCircle size={16} strokeWidth={2} />
+                      </span>
                       <span className="text-slate-600 leading-relaxed">{profile.bio}</span>
                     </div>
                   )}
                   {profile.cvUrl && (
                     <div className="flex items-center gap-3 text-sm">
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-teal-100 text-base">📄</span>
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-teal-100 text-teal-600">
+                        <FileText size={16} strokeWidth={2} />
+                      </span>
                       <a href={profile.cvUrl} target="_blank" rel="noreferrer" className="font-medium text-[#1B4FD8] hover:underline">View CV</a>
                     </div>
                   )}
@@ -217,7 +228,7 @@ export default function StudentProfilePage() {
                   }`}
                 >
                   <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${item.iconBg}`}>
-                    <span className={`text-lg ${item.iconColor}`}>{item.icon}</span>
+                    <item.Icon size={18} strokeWidth={2} className={item.iconColor} />
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-semibold text-[#0F1729]">{item.title}</p>
@@ -238,7 +249,9 @@ export default function StudentProfilePage() {
             {/* Profile strength card */}
             <div className="rounded-2xl border border-[#E8ECF2] bg-white p-6 lg:sticky lg:top-24">
               <div className="flex items-center gap-3 mb-4">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-50 text-lg">⚡</div>
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-50 text-amber-600">
+                  <Zap size={18} strokeWidth={2} />
+                </div>
                 <div>
                   <p className="text-sm font-bold text-[#0F1729]">Profile Strength</p>
                   <p className="text-[11px] text-slate-400">Complete to get better matches</p>
@@ -270,8 +283,8 @@ export default function StudentProfilePage() {
                   { label: "CV uploaded",  done: !!profile?.cvUrl },
                 ].map((item) => (
                   <div key={item.label} className="flex items-center gap-2 text-sm">
-                    <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-bold ${item.done ? "bg-green-100 text-green-600" : "bg-slate-100 text-slate-400"}`}>
-                      {item.done ? "✓" : "○"}
+                    <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${item.done ? "bg-green-100 text-green-600" : "bg-slate-100 text-slate-400"}`}>
+                      {item.done ? <Check size={12} strokeWidth={3} /> : <Circle size={8} strokeWidth={3} fill="currentColor" />}
                     </span>
                     <span className={item.done ? "text-[#0F1729]" : "text-slate-400"}>{item.label}</span>
                   </div>

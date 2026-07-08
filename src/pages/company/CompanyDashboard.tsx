@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ClipboardList, Users, Star, UserRound } from "lucide-react";
 import { useAuth } from "../../context/auth.context";
 import { getProfile } from "../../api/employer.api";
 import { getMyListings } from "../../api/listings.api";
@@ -164,31 +165,18 @@ export default function CompanyDashboard() {
               <h1 className="text-2xl font-bold text-[#0F1729]">{displayName}</h1>
             </div>
           </div>
-          <button
-            onClick={() => navigate("/notifications")}
-            className="relative flex h-11 w-11 items-center justify-center rounded-full border border-[#E8ECF2] bg-white shadow-sm transition hover:border-[#1B4FD8]"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.8} stroke="currentColor" className="h-5 w-5 text-[#0F1729]">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
-            </svg>
-            {stats.alerts > 0 && (
-              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
-                {stats.alerts}
-              </span>
-            )}
-          </button>
         </div>
 
         {/* Stat cards */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           {[
-            { label: "Active listings", value: loading ? "—" : stats.listings, icon: "📋", bg: "#EEF2FF", text: "#1B4FD8" },
-            { label: "Total applicants", value: loading ? "—" : stats.applicants, icon: "👥", bg: "#ECFDF5", text: "#059669" },
-            { label: "Shortlisted", value: loading ? "—" : stats.alerts, icon: "⭐", bg: "#FFFBEB", text: "#D97706" },
+            { label: "Active listings", value: loading ? "—" : stats.listings, Icon: ClipboardList, bg: "#EEF2FF", text: "#1B4FD8" },
+            { label: "Total applicants", value: loading ? "—" : stats.applicants, Icon: Users, bg: "#ECFDF5", text: "#059669" },
+            { label: "Shortlisted", value: loading ? "—" : stats.alerts, Icon: Star, bg: "#FFFBEB", text: "#D97706" },
           ].map((s) => (
             <div key={s.label} className="rounded-2xl border border-[#E8ECF2] bg-white p-5 flex items-center gap-4">
-              <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl text-xl" style={{ backgroundColor: s.bg }}>
-                {s.icon}
+              <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl" style={{ backgroundColor: s.bg, color: s.text }}>
+                <s.Icon size={22} strokeWidth={2} />
               </div>
               <div>
                 <p className="text-2xl font-bold text-[#0F1729]">{s.value}</p>
@@ -283,8 +271,8 @@ export default function CompanyDashboard() {
                         onClick={() => navigate("/company/applicants")}
                         className="flex items-center gap-4 rounded-2xl border border-[#E8ECF2] bg-white p-4 text-left shadow-sm transition hover:border-[#1B4FD8] hover:shadow-md"
                       >
-                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#EEF2FF] text-sm font-bold text-[#1B4FD8]">
-                          🧑
+                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#EEF2FF] text-[#1B4FD8]">
+                          <UserRound size={20} strokeWidth={2} />
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-semibold text-[#0F1729] truncate">{applicantName}</p>
